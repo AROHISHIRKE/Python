@@ -1,0 +1,30 @@
+#Given a set of nodes.Choose the nodes that are good to be initiator foe Chandi Lamport algorithm.
+
+n=int(input("Enter the number of nodes:"))
+adjacency=[[0 for i in range(n)]for j in range(n)]
+name=input("Enter the name of the nodes: ")
+name=name.replace(" ","")
+for i in range(n):
+    temp=input("Enter the adjacent edges of " + name[i])
+    temp=temp.replace(" ", "")
+    length=len(temp)
+    for j in range(length):
+        vertex=name.index(temp[j])
+        adjacency[i][vertex]=1
+initiator=[]
+for j in range(n):
+    front=0
+    end=1
+    queue=[j]
+    while(front<end):
+        for i in range(n):
+            if adjacency[queue[front]][i]==1:
+                if i not in queue:
+                    queue.append(i)
+                    end+=1
+        front+=1
+    if (front==n):
+        initiator.append(j)
+print("Nodes that can be initiator are:")
+for i in range(len(initiator)):
+    print(name[initiator[i]])
